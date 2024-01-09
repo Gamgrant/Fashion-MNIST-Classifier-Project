@@ -50,14 +50,12 @@ Aiming for at least 75% accuracy on the test set within 20 epochs.
 I experimented with two weight initialization strategies:
  - All weights and biases as zeros.
  - Xavier Normal initialization for weights and zeros for biases.
- - 
+   
 ### Data Augmentation
 After discussing the utility of data augmentation in general, I applied specific augmentation techniques to the dataset, analyzing the impact on the classifier's performance.
 
 ### Dropout Implementation
 I incorporated dropout into the network, assessing its effect on the performance and stability of the model.
-
-## TL;DR for Reporting Results
 
 To ensure all aspects were covered, the final report included:
 
@@ -65,3 +63,34 @@ Purpose of __len__ and __getitem__ in the dataloader class.
 Role of patience and factor parameters in the learning rate scheduler.
 Tensorboard screenshots, final train loss, and test accuracy for various configurations of the classifier.
 This project not only enhanced my understanding of neural network architectures and PyTorch but also provided practical experience in handling and analyzing image data. The challenges of tuning and improving the model gave me valuable insights into the intricacies of machine learning workflows.
+
+
+
+## Results
+### Case 1:
+- dropout_strategy = False
+- data_augmentation = False
+- init_weights_strategy = 'zero'
+# ![case1](Results/case1.png)
+Initialization of weights and biases to 0 is a bad idea because it causes the neurons to behave symmetrically. This symmetry prevents effective learning, as all neurons in a layer will learn the same features during training, which is why the training loss does not change throughout the training process, leading to the poor performance (lower test accuracy) 
+
+### Case 2:
+- dropout_strategy = False
+- data_augmentation = False
+- init_weights_strategy = 'xavier'
+# ![case2](Results/case2.png)
+Xavier ini8aliza8on, on the other hand, addresses these issues by considering the size of the previous and next layer in the network and scaling the weights accordingly. It aims to keep the variance of the ac8va8ons consistent across layers. It leads to faster convergence than the vanilla ini8aliza8on, which leads to more op8mized performance and higher test accuracy.
+
+### Case 3:
+- dropout_strategy = False
+- data_augmentation = True
+- init_weights_strategy = 'xavier'
+# ![case3](Results/case3.png)
+# ![dataAug](Results/dataAug.png)
+
+### Case 4:
+- dropout_strategy = True
+- data_augmentation = True
+- init_weights_strategy = 'xavier'
+# ![case4](Results/case4.png)
+
